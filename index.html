@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solar Haven — Solar, Inverter &amp; Battery Systems for Nigeria</title>
+<meta name="description" content="Solar Haven designs and installs custom solar, inverter and battery systems across Nigeria. 8 years in the field, 1,000+ systems installed, 50MW deployed.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+
+  /* =========================================================
+     DESIGN TOKENS — matched to reference palette/type/layout
+     ========================================================= */
+  :root{
+    --color-primary: #1261a0;
+    --color-primary-dark: #0b416d;
+    --color-primary-light: #eaf4fb;
+
+    --color-accent: #f28c28;
+    --color-accent-dark: #d96f0d;
+    --color-accent-light: #fff3e6;
+
+    --color-white: #ffffff;
+    --color-black: #101418;
+
+    --color-text: #27313a;
+    --color-text-muted: #66727d;
+
+    --color-background: #ffffff;
+    --color-surface: #f6f8fa;
+    --color-border: #e4e9ed;
+
+    --font-main: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+    --container-width: 1180px;
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 22px;
+
+    --shadow-sm: 0 4px 15px rgba(16,20,24,0.06);
+    --shadow-md: 0 12px 35px rgba(16,20,24,0.09);
+
+    --transition: 180ms ease;
+  }
+
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--font-main);color:var(--color-text);background:var(--color-background);line-height:1.6;-webkit-font-smoothing:antialiased;}
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  button,input,select{font:inherit;}
+  button{border:0;cursor:pointer;background:none;}
+
+  .container{width:min(calc(100% - 40px), var(--container-width));margin-inline:auto;}
+  .section{padding:90px 0;}
+  @media (max-width:640px){.section{padding:56px 0;}}
+  .section-header{max-width:650px;margin-bottom:48px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;margin-bottom:14px;color:var(--color-primary);font-size:0.78rem;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;}
+  .eyebrow::before{content:"";width:24px;height:2px;background:var(--color-accent);}
+  .section-title{color:var(--color-black);font-size:clamp(2rem,4vw,3rem);line-height:1.1;letter-spacing:-0.035em;margin-bottom:16px;}
+  .section-description{color:var(--color-text-muted);font-size:1.05rem;}
+
+  /* Skip link */
+  .skip-link{position:absolute;left:-999px;top:0;background:var(--color-primary);color:#fff;padding:10px 16px;z-index:200;border-radius:6px;}
+  .skip-link:focus{left:12px;top:12px;}
+
+  /* Buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:48px;padding:0 20px;border-radius:var(--radius-sm);font-size:0.92rem;font-weight:750;transition:transform var(--transition),background var(--transition),box-shadow var(--transition);}
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{color:var(--color-white);background:var(--color-primary);box-shadow:0 8px 20px rgba(18,97,160,0.25);}
+  .btn-primary:hover{background:var(--color-primary-dark);}
+  .btn-accent{color:var(--color-white);background:var(--color-accent);}
+  .btn-accent:hover{background:var(--color-accent-dark);}
+  .btn-outline{color:var(--color-primary);background:transparent;border:1px solid var(--color-border);}
+  .btn-outline:hover{border-color:var(--color-primary);background:var(--color-primary-light);}
+
+  /* =========================================================
+     NAV
+     ========================================================= */
+  .navbar{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--color-border);}
+  .nav-inner{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:30px;}
+  .logo{display:flex;align-items:center;gap:10px;color:var(--color-black);font-size:1.15rem;font-weight:900;letter-spacing:-0.03em;}
+  .logo-mark{width:36px;height:36px;display:grid;place-items:center;color:#fff;background:var(--color-primary);border-radius:9px;font-size:0.9rem;font-weight:900;}
+  .nav-links{display:flex;align-items:center;gap:28px;color:var(--color-text-muted);font-size:0.88rem;font-weight:650;}
+  .nav-links a{transition:color var(--transition);}
+  .nav-links a:hover{color:var(--color-primary);}
+  .nav-actions{display:flex;align-items:center;gap:12px;}
+  .mobile-menu{display:none;width:38px;height:38px;border-radius:8px;align-items:center;justify-content:center;background:var(--color-surface);border:1px solid var(--color-border);}
+  @media (max-width:880px){
+    .nav-links{display:none;}
+    .nav-actions .btn-outline{display:none;}
+    .mobile-menu{display:flex;}
+  }
+
+  /* =========================================================
+     HERO
+     ========================================================= */
+  .hero{padding:70px 0 0;background:linear-gradient(180deg, var(--color-primary-light) 0%, var(--color-white) 60%);}
+  .hero-inner{display:grid;grid-template-columns:1.05fr 0.95fr;gap:48px;align-items:start;padding-bottom:64px;}
+  @media (max-width:960px){.hero-inner{grid-template-columns:1fr;}}
+  .hero-copy h1{color:var(--color-black);font-size:clamp(2.1rem,4.4vw,3.3rem);line-height:1.08;letter-spacing:-0.035em;max-width:14ch;}
+  .hero-copy p.lede{margin-top:20px;color:var(--color-text-muted);font-size:1.08rem;max-width:48ch;}
+  .hero-actions{display:flex;gap:14px;margin-top:30px;flex-wrap:wrap;}
+
+  /* Trust strip */
+  .trust-strip{border-bottom:1px solid var(--color-border);border-top:1px solid var(--color-border);background:var(--color-white);}
+  .trust-inner{min-height:100px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:25px;padding:22px 0;}
+  .trust-intro{color:var(--color-text-muted);font-size:0.8rem;font-weight:700;}
+  .trust-items{display:flex;align-items:center;gap:40px;flex-wrap:wrap;}
+  .trust-item{color:var(--color-black);font-size:0.95rem;font-weight:800;}
+  .trust-item span{display:block;color:var(--color-text-muted);font-size:0.7rem;font-weight:550;margin-top:2px;}
+
+  /* =========================================================
+     WHY
+     ========================================================= */
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--color-border);border-radius:var(--radius-md);overflow:hidden;background:var(--color-white);}
+  @media (max-width:820px){.why-grid{grid-template-columns:1fr;}}
+  .why-item{padding:34px 30px;}
+  .why-grid .why-item:not(:last-child){border-right:1px solid var(--color-border);}
+  @media (max-width:820px){.why-grid .why-item:not(:last-child){border-right:none;border-bottom:1px solid var(--color-border);}}
+  .why-num{color:var(--color-accent);font-size:0.72rem;font-weight:800;letter-spacing:0.08em;}
+  .why-item h3{font-size:1.14rem;margin-top:14px;color:var(--color-black);letter-spacing:-0.02em;}
+  .why-item p{margin-top:10px;color:var(--color-text-muted);font-size:0.96rem;}
+
+  /* =========================================================
+     SYSTEM ARCHITECTURE DIAGRAM
+     ========================================================= */
+  .architecture{background:var(--color-white);}
+  .diagram-frame{border:1px solid var(--color-border);border-radius:var(--radius-lg);background:var(--color-surface);padding:20px;box-shadow:var(--shadow-sm);overflow-x:auto;}
+  .diagram-frame svg{width:100%;height:auto;min-width:640px;display:block;}
+  .diagram-legend{display:flex;flex-wrap:wrap;gap:22px;margin-top:22px;}
+  .legend-item{display:flex;align-items:center;gap:9px;font-size:0.85rem;color:var(--color-text-muted);font-weight:600;}
+  .legend-swatch{width:13px;height:13px;border-radius:4px;flex-shrink:0;}
+  .diagram-node-label{font-family:'Inter',sans-serif;font-weight:700;font-size:12.5px;fill:#fff;}
+  .diagram-sub-label{font-family:'Inter',sans-serif;font-weight:500;font-size:10px;fill:rgba(255,255,255,0.88);}
+  .diagram-edge-label{font-family:'Inter',sans-serif;font-weight:600;font-size:10.5px;fill:var(--color-text-muted);}
+  .diagram-group-label{font-family:'Inter',sans-serif;font-weight:800;font-size:11.5px;letter-spacing:0.08em;fill:var(--color-text-muted);}
+
+  /* =========================================================
+     LOAD CALCULATOR SECTION (replaces packages section)
+     ========================================================= */
+  .calc-section{background:var(--color-surface);}
+  .calc-layout{display:grid;grid-template-columns:0.85fr 1.15fr;gap:48px;align-items:start;}
+  @media (max-width:960px){.calc-layout{grid-template-columns:1fr;}}
+  .calc-side h3{color:var(--color-black);font-size:1.3rem;margin-bottom:14px;letter-spacing:-0.02em;}
+  .calc-side p{color:var(--color-text-muted);font-size:0.98rem;margin-bottom:16px;}
+  .calc-points{display:flex;flex-direction:column;gap:14px;margin-top:22px;}
+  .calc-point{display:flex;gap:12px;align-items:flex-start;}
+  .calc-point-mark{width:26px;height:26px;flex-shrink:0;border-radius:7px;background:var(--color-primary-light);color:var(--color-primary);display:grid;place-items:center;font-size:0.78rem;font-weight:800;}
+  .calc-point p{margin:0;color:var(--color-text);font-size:0.92rem;}
+
+  .calculator-card{width:100%;padding:24px;background:var(--color-white);border:1px solid var(--color-border);border-radius:var(--radius-lg);box-shadow:var(--shadow-md);}
+  .calculator-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;padding-bottom:22px;border-bottom:1px solid var(--color-border);}
+  .calculator-eyebrow{color:var(--color-accent);font-size:0.68rem;font-weight:850;letter-spacing:0.1em;}
+  .calculator-heading h2{color:var(--color-black);font-size:1.45rem;line-height:1.1;margin-top:5px;letter-spacing:-0.035em;}
+  .calculator-icon{width:42px;height:42px;display:grid;place-items:center;flex-shrink:0;color:var(--color-primary);background:var(--color-primary-light);border-radius:10px;font-size:1.2rem;}
+
+  .calculator-section{padding:20px 0;border-bottom:1px solid var(--color-border);}
+  .calculator-section-title{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:14px;}
+  .calculator-section-title>div{display:flex;flex-direction:column;}
+  .calculator-section-title strong{color:var(--color-black);font-size:0.85rem;}
+  .calculator-section-title span{color:var(--color-text-muted);font-size:0.7rem;}
+  .load-total{color:var(--color-primary)!important;font-size:0.95rem!important;}
+
+  .appliance-list{display:grid;gap:8px;}
+  .appliance-row{display:grid;grid-template-columns:minmax(0,1fr) 62px 72px 30px;gap:6px;align-items:center;}
+  .appliance-row select,.appliance-row input{width:100%;height:38px;padding:0 9px;color:var(--color-text);background:var(--color-surface);border:1px solid var(--color-border);border-radius:7px;outline:none;font-size:0.72rem;}
+  .appliance-row select:focus,.appliance-row input:focus{border-color:var(--color-primary);}
+  .appliance-row .watts-input{color:var(--color-text-muted);}
+  .remove-appliance{width:30px;height:30px;display:grid;place-items:center;color:var(--color-text-muted);background:transparent;border-radius:6px;font-size:1rem;}
+  .remove-appliance:hover{color:#b42318;background:#fff1f0;}
+  .add-appliance{width:100%;margin-top:10px;padding:10px;color:var(--color-primary);background:var(--color-primary-light);border-radius:7px;font-size:0.75rem;font-weight:800;transition:background var(--transition),transform var(--transition);}
+  .add-appliance:hover{background:#dcedfa;transform:translateY(-1px);}
+
+  .usage-control input[type="range"]{width:100%;accent-color:var(--color-primary);cursor:pointer;}
+  .usage-output{display:flex;align-items:center;justify-content:space-between;margin-top:8px;}
+  .usage-output span{color:var(--color-text-muted);font-size:0.72rem;}
+  .usage-output strong{color:var(--color-black);font-size:0.78rem;}
+
+  .diesel-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .diesel-grid label{display:flex;flex-direction:column;gap:5px;}
+  .diesel-grid label span{color:var(--color-text-muted);font-size:0.68rem;}
+  .diesel-grid input{width:100%;height:38px;padding:0 10px;color:var(--color-text);background:var(--color-surface);border:1px solid var(--color-border);border-radius:7px;outline:none;font-size:0.75rem;}
+  .diesel-grid input:focus{border-color:var(--color-primary);}
+
+  .calculator-results{padding-top:20px;}
+  .result-main{display:flex;align-items:center;justify-content:space-between;padding:15px;background:var(--color-primary-light);border-radius:10px;}
+  .result-main span{color:var(--color-text-muted);font-size:0.72rem;}
+  .result-main strong{color:var(--color-primary);font-size:1.25rem;}
+  .result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px;}
+  .result-item{padding:12px;background:var(--color-surface);border-radius:8px;}
+  .result-item span{display:block;color:var(--color-text-muted);font-size:0.64rem;}
+  .result-item strong{display:block;color:var(--color-black);margin-top:2px;font-size:0.85rem;}
+  .savings-result{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;padding:14px;background:var(--color-accent-light);border-radius:9px;}
+  .savings-result>div{display:flex;flex-direction:column;}
+  .savings-result span{color:var(--color-text-muted);font-size:0.64rem;}
+  .savings-result strong{color:var(--color-accent-dark);font-size:1.05rem;}
+  .estimate-note{white-space:nowrap;color:var(--color-text-muted)!important;font-size:0.58rem!important;}
+  .calculator-cta{width:100%;margin-top:12px;}
+
+  @media (max-width:600px){
+    .calculator-card{padding:18px;}
+    .appliance-row{grid-template-columns:minmax(0,1fr) 55px 62px 28px;}
+    .appliance-row select,.appliance-row input{font-size:0.68rem;padding:0 6px;}
+  }
+
+  /* =========================================================
+     SERVICES
+     ========================================================= */
+  .services{background:var(--color-white);}
+  .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--color-border);border-radius:var(--radius-md);overflow:hidden;}
+  @media (max-width:920px){.svc-grid{grid-template-columns:repeat(2,1fr);}}
+  @media (max-width:600px){.svc-grid{grid-template-columns:1fr;}}
+  .svc-card{background:var(--color-white);padding:30px 26px;min-height:180px;display:flex;flex-direction:column;justify-content:flex-start;gap:10px;}
+  .svc-icon{width:38px;height:38px;border-radius:9px;background:var(--color-primary-light);color:var(--color-primary);display:grid;place-items:center;font-size:1.05rem;margin-bottom:4px;}
+  .svc-card h3{font-size:1.05rem;color:var(--color-black);letter-spacing:-0.015em;}
+  .svc-card p{font-size:0.88rem;color:var(--color-text-muted);margin:0;}
+
+  /* =========================================================
+     GALLERY
+     ========================================================= */
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  @media (max-width:820px){.gallery-grid{grid-template-columns:repeat(2,1fr);}}
+  .gallery-grid img{width:100%;height:220px;object-fit:cover;border-radius:var(--radius-md);background:var(--color-surface);border:1px solid var(--color-border);}
+  .gallery-grid a:nth-child(1){grid-row:span 2;}
+  .gallery-grid a:nth-child(1) img{height:100%;min-height:452px;}
+  @media (max-width:820px){.gallery-grid a:nth-child(1){grid-row:auto;}.gallery-grid a:nth-child(1) img{min-height:220px;}}
+
+  /* =========================================================
+     CONTACT
+     ========================================================= */
+  .contact{background:var(--color-surface);}
+  .contact-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:48px;}
+  @media (max-width:880px){.contact-grid{grid-template-columns:1fr;}}
+  .office{padding:18px 0;border-top:1px solid var(--color-border);}
+  .office:first-of-type{border-top:none;}
+  .office h4{font-size:1rem;margin-bottom:6px;color:var(--color-black);letter-spacing:-0.01em;}
+  .office p{margin:0;color:var(--color-text-muted);font-size:0.92rem;}
+  .contact-card{background:var(--color-primary);color:#fff;border-radius:var(--radius-lg);padding:36px 32px;box-shadow:var(--shadow-md);}
+  .contact-card h3{font-size:1.3rem;color:#fff;letter-spacing:-0.02em;}
+  .contact-card p{color:#cfe3f2;margin-top:10px;font-size:0.95rem;}
+  .contact-line{display:flex;align-items:center;gap:10px;margin-top:16px;font-size:0.94rem;color:#fff;font-weight:700;}
+  .socials{display:flex;gap:10px;margin-top:26px;}
+  .social-btn{width:38px;height:38px;border-radius:8px;background:rgba(255,255,255,0.14);display:flex;align-items:center;justify-content:center;transition:background .15s;}
+  .social-btn:hover{background:rgba(255,255,255,0.24);}
+  .social-btn svg{width:17px;height:17px;color:#fff;}
+
+  footer{padding:32px 0;border-top:1px solid var(--color-border);background:var(--color-white);}
+  .footer-inner{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;}
+  .footer-inner p{margin:0;font-size:0.85rem;color:var(--color-text-muted);}
+
+  @media (prefers-reduced-motion:reduce){*{animation-duration:0.001ms!important;animation-iteration-count:1!important;transition-duration:0.001ms!important;}}
+  :focus-visible{outline:2px solid var(--color-primary);outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="logo" href="#top">
+      <span class="logo-mark">☀</span>
+      Solar Haven
+    </a>
+    <nav class="nav-links">
+      <a href="#architecture">System Diagram</a>
+      <a href="#calculator">Load Calculator</a>
+      <a href="#gallery">Past Projects</a>
+      <a href="#why">About Us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-outline" href="tel:+2348103294358">0810 329 4358</a>
+      <a class="btn btn-primary" href="#contact"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></a>
+      <button class="mobile-menu" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow">Serving Nigeria since 2016</div>
+        <h1>Power that doesn't wait for NEPA.</h1>
+        <p class="lede">Solar Haven designs, supplies and installs solar, inverter and battery systems sized to how you actually live and work — from a single bedside fridge to a full commercial facility.</p>
+        <div class="hero-actions">
+          <a class="btn btn-accent" href="#calculator">Estimate my system</a>
+          <a class="btn btn-outline" href="tel:+2348103294358">Talk to an engineer</a>
+        </div>
+      </div>
+
+      <div>
+        <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Diagram of energy flowing from sun to solar panel to battery to home" style="width:100%;height:auto;">
+          <circle cx="60" cy="55" r="22" fill="none" stroke="#f28c28" stroke-width="2"/>
+          <g stroke="#f28c28" stroke-width="2">
+            <line x1="60" y1="15" x2="60" y2="24"/>
+            <line x1="60" y1="86" x2="60" y2="95"/>
+            <line x1="20" y1="55" x2="29" y2="55"/>
+            <line x1="91" y1="55" x2="100" y2="55"/>
+            <line x1="33" y1="28" x2="39" y2="34"/>
+            <line x1="81" y1="76" x2="87" y2="82"/>
+            <line x1="87" y1="28" x2="81" y2="34"/>
+            <line x1="39" y1="76" x2="33" y2="82"/>
+          </g>
+          <text x="60" y="112" text-anchor="middle" font-family="Inter" font-size="10" fill="#66727d">SUN</text>
+
+          <g transform="translate(150,40)">
+            <rect x="0" y="0" width="70" height="46" rx="4" fill="#eaf4fb" stroke="#1261a0" stroke-width="1.5"/>
+            <line x1="0" y1="15.3" x2="70" y2="15.3" stroke="#1261a0" opacity="0.5"/>
+            <line x1="0" y1="30.6" x2="70" y2="30.6" stroke="#1261a0" opacity="0.5"/>
+            <line x1="23.3" y1="0" x2="23.3" y2="46" stroke="#1261a0" opacity="0.5"/>
+            <line x1="46.6" y1="0" x2="46.6" y2="46" stroke="#1261a0" opacity="0.5"/>
+            <text x="35" y="66" text-anchor="middle" font-family="Inter" font-size="10" fill="#66727d">PANEL</text>
+          </g>
+
+          <g transform="translate(270,32)">
+            <rect x="0" y="0" width="46" height="62" rx="5" fill="#eaf4fb" stroke="#1261a0" stroke-width="1.5"/>
+            <rect x="16" y="-8" width="14" height="8" rx="2" fill="#1261a0"/>
+            <rect x="8" y="38" width="30" height="14" rx="2" fill="#f28c28" opacity="0.85"/>
+            <text x="23" y="82" text-anchor="middle" font-family="Inter" font-size="10" fill="#66727d">BATTERY</text>
+          </g>
+
+          <g transform="translate(345,25)">
+            <path d="M0 34 L34 8 L68 34" fill="none" stroke="#1261a0" stroke-width="2"/>
+            <rect x="8" y="34" width="52" height="40" fill="#eaf4fb" stroke="#1261a0" stroke-width="1.5"/>
+            <rect x="27" y="52" width="16" height="22" fill="#ffffff" stroke="#1261a0"/>
+            <rect x="14" y="42" width="12" height="10" fill="#f28c28" opacity="0.5"/>
+            <text x="34" y="92" text-anchor="middle" font-family="Inter" font-size="10" fill="#66727d">HOME</text>
+          </g>
+
+          <path d="M100 55 C130 55 130 63 150 63 M220 63 C245 63 250 63 270 63 M316 63 C330 63 335 63 345 45"
+                fill="none" stroke="#c7d4de" stroke-width="2" stroke-dasharray="4 5"/>
+          <circle r="4" fill="#f28c28">
+            <animateMotion dur="4.5s" repeatCount="indefinite"
+              path="M100 55 C130 55 130 63 150 63 L220 63 C245 63 250 63 270 63 L316 63 C330 63 335 63 345 45"/>
+          </circle>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="trust-strip">
+    <div class="container trust-inner">
+      <p class="trust-intro">Built around dependable energy solutions.</p>
+      <div class="trust-items">
+        <div class="trust-item">8<span>Years in Nigeria</span></div>
+        <div class="trust-item">1,000+<span>Systems installed</span></div>
+        <div class="trust-item">50MW<span>Capacity deployed</span></div>
+        <div class="trust-item">3<span>Offices nationwide</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY -->
+  <section class="section" id="why">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">How we work</div>
+        <h2 class="section-title">From energy audit to commissioning, in three steps.</h2>
+        <p class="section-description">We don't sell parts off a shelf. Every install starts with understanding your actual load, then we size, supply and support the whole system.</p>
+      </div>
+      <div class="why-grid">
+        <div class="why-item">
+          <span class="why-num">STEP 1</span>
+          <h3>Custom sizing</h3>
+          <p>A full energy audit of your home or facility, so the system matches what you'll actually run — not a generic package.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-num">STEP 2</span>
+          <h3>Top-tier supply</h3>
+          <p>Panels, inverters and batteries sourced through our international technology partners — built for the Nigerian grid, not just the spec sheet.</p>
+        </div>
+        <div class="why-item">
+          <span class="why-num">STEP 3</span>
+          <h3>Install &amp; support</h3>
+          <p>Certified engineers handle installation nationwide, backed by warranty and after-sales support that doesn't disappear once the system is on.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SYSTEM ARCHITECTURE -->
+  <section class="section architecture" id="architecture">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">Under the hood</div>
+        <h2 class="section-title">How a full system connects.</h2>
+        <p class="section-description">Every install is built around a core essential system. Grid tie-in, generator backup, monitoring and smart load control are added on top, depending on what your site needs.</p>
+      </div>
+
+      <div class="diagram-frame">
+        <svg viewBox="0 0 960 640" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="System architecture diagram showing power and data flow between solar panels, charge controller, inverter, battery, distribution board, loads, and optional grid, generator, monitoring and smart controller components">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0L10 5L0 10z" fill="#9AA7B0"/>
+            </marker>
+            <marker id="arrowDashed" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0L10 5L0 10z" fill="#C7A46B"/>
+            </marker>
+          </defs>
+
+          <!-- Group frames -->
+          <rect x="40" y="30" width="480" height="560" rx="16" fill="none" stroke="#D7DEDD" stroke-width="1.5" stroke-dasharray="3 5"/>
+          <text x="60" y="52" class="diagram-group-label">ESSENTIAL SYSTEM</text>
+
+          <rect x="650" y="140" width="250" height="450" rx="16" fill="none" stroke="#D7DEDD" stroke-width="1.5" stroke-dasharray="3 5"/>
+          <text x="668" y="162" class="diagram-group-label">OPTIONAL ENHANCEMENTS</text>
+
+          <!-- ===== SOLID POWER-FLOW EDGES (drawn first, under nodes) ===== -->
+          <g fill="none" stroke="#9AA7B0" stroke-width="2">
+            <!-- PV -> MPPT -->
+            <path d="M280,97 L280,143" marker-end="url(#arrow)"/>
+            <!-- MPPT -> BAT -->
+            <path d="M245,197 C210,225 190,245 178,273" marker-end="url(#arrow)"/>
+            <!-- MPPT -> HYB -->
+            <path d="M315,197 C360,225 390,245 410,273" marker-end="url(#arrow)"/>
+            <!-- BAT <-> HYB (power) -->
+            <path d="M245,308 L355,308" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+            <!-- GRID <-> HYB -->
+            <path d="M505,300 L685,300" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+            <!-- GEN -> HYB -->
+            <path d="M685,205 C580,220 500,245 470,273" marker-end="url(#arrow)"/>
+            <!-- HYB -> ACDB -->
+            <path d="M410,327 C360,355 320,368 300,393" marker-end="url(#arrow)"/>
+            <!-- ACDB -> LOADS -->
+            <path d="M280,447 L280,513" marker-end="url(#arrow)"/>
+            <!-- ACDB -> SMART -->
+            <path d="M355,432 C500,460 600,490 685,530" marker-end="url(#arrow)"/>
+            <!-- SMART -> LOADS -->
+            <path d="M685,552 C550,565 450,555 355,545" marker-end="url(#arrow)"/>
+          </g>
+
+          <!-- ===== DOTTED DATA / CONTROL EDGES ===== -->
+          <g fill="none" stroke="#C7A46B" stroke-width="1.8" stroke-dasharray="5 4">
+            <!-- BAT -. BMS data .-> HYB (offset above the power line) -->
+            <path d="M245,290 L355,290" marker-end="url(#arrowDashed)"/>
+            <!-- HYB -. Data .-> MON -->
+            <path d="M505,315 C580,345 630,375 685,405" marker-end="url(#arrowDashed)"/>
+            <!-- SMART -. Control signal .-> HYB -->
+            <path d="M745,513 C760,440 620,360 460,330" marker-end="url(#arrowDashed)"/>
+          </g>
+
+          <!-- ===== EDGE LABELS ===== -->
+          <text x="300" y="283" class="diagram-edge-label">BMS data</text>
+          <text x="560" y="368" class="diagram-edge-label">data</text>
+          <text x="748" y="470" class="diagram-edge-label">control signal</text>
+
+          <!-- ===== NODES ===== -->
+          <!-- PV -->
+          <rect x="205" y="43" width="150" height="54" rx="10" fill="#10B981" stroke="#065F46" stroke-width="2"/>
+          <text x="280" y="65" text-anchor="middle" class="diagram-node-label">Solar PV Array</text>
+          <text x="280" y="80" text-anchor="middle" class="diagram-sub-label">DC 400–1500V</text>
+
+          <!-- MPPT -->
+          <rect x="205" y="143" width="150" height="54" rx="10" fill="#10B981" stroke="#065F46" stroke-width="2"/>
+          <text x="280" y="167" text-anchor="middle" class="diagram-node-label">MPPT Charge</text>
+          <text x="280" y="182" text-anchor="middle" class="diagram-sub-label">Controller</text>
+
+          <!-- BAT -->
+          <rect x="95" y="273" width="150" height="54" rx="10" fill="#10B981" stroke="#065F46" stroke-width="2"/>
+          <text x="170" y="295" text-anchor="middle" class="diagram-node-label">LiFePO4 Battery</text>
+          <text x="170" y="310" text-anchor="middle" class="diagram-sub-label">DC storage</text>
+
+          <!-- HYB -->
+          <rect x="355" y="273" width="150" height="54" rx="10" fill="#10B981" stroke="#065F46" stroke-width="2"/>
+          <text x="430" y="295" text-anchor="middle" class="diagram-node-label">Hybrid Inverter</text>
+          <text x="430" y="310" text-anchor="middle" class="diagram-sub-label">DC → AC + brain</text>
+
+          <!-- ACDB -->
+          <rect x="205" y="393" width="150" height="54" rx="10" fill="#10B981" stroke="#065F46" stroke-width="2"/>
+          <text x="280" y="415" text-anchor="middle" class="diagram-node-label">AC Distribution</text>
+          <text x="280" y="430" text-anchor="middle" class="diagram-sub-label">Board / breakers</text>
+
+          <!-- LOADS -->
+          <rect x="205" y="513" width="150" height="54" rx="10" fill="#EF4444" stroke="#991B1B" stroke-width="2"/>
+          <text x="280" y="535" text-anchor="middle" class="diagram-node-label">Loads</text>
+          <text x="280" y="550" text-anchor="middle" class="diagram-sub-label">Critical + non-critical</text>
+
+          <!-- GRID -->
+          <rect x="685" y="273" width="150" height="54" rx="10" fill="#3B82F6" stroke="#1E40AF" stroke-width="2"/>
+          <text x="760" y="305" text-anchor="middle" class="diagram-node-label">Utility Grid</text>
+
+          <!-- GEN -->
+          <rect x="685" y="178" width="150" height="54" rx="10" fill="#F59E0B" stroke="#92400E" stroke-width="2"/>
+          <text x="760" y="200" text-anchor="middle" class="diagram-node-label">Backup Generator</text>
+          <text x="760" y="215" text-anchor="middle" class="diagram-sub-label">+ ATS</text>
+
+          <!-- MON -->
+          <rect x="685" y="383" width="150" height="54" rx="10" fill="#F59E0B" stroke="#92400E" stroke-width="2"/>
+          <text x="760" y="405" text-anchor="middle" class="diagram-node-label">Monitoring</text>
+          <text x="760" y="420" text-anchor="middle" class="diagram-sub-label">WiFi / app</text>
+
+          <!-- SMART -->
+          <rect x="685" y="513" width="150" height="54" rx="10" fill="#F59E0B" stroke="#92400E" stroke-width="2"/>
+          <text x="760" y="535" text-anchor="middle" class="diagram-node-label">Smart Load</text>
+          <text x="760" y="550" text-anchor="middle" class="diagram-sub-label">Controller</text>
+        </svg>
+      </div>
+
+      <div class="diagram-legend">
+        <div class="legend-item"><span class="legend-swatch" style="background:#10B981;"></span>Essential system</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#F59E0B;"></span>Optional enhancement</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#3B82F6;"></span>Grid connection</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#EF4444;"></span>Load</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#9AA7B0;border-radius:0;height:2px;width:16px;"></span>Power flow</div>
+        <div class="legend-item"><span class="legend-swatch" style="background:#C7A46B;border-radius:0;height:2px;width:16px;"></span>Data / control signal</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOAD CALCULATOR (replaces the packages/pricing section) -->
+  <section class="section calc-section" id="calculator">
+    <div class="container">
+      <div class="calc-layout">
+
+        <div class="calc-side">
+          <div class="eyebrow">Solar Estimator</div>
+          <h3>Work out your system size before you call.</h3>
+          <p>Add the appliances you want to run, tell us how many hours a day you use them, and we'll estimate the inverter, solar array and battery bank you need — plus what you could be saving against diesel.</p>
+          <div class="calc-points">
+            <div class="calc-point">
+              <span class="calc-point-mark">1</span>
+              <p>Pick appliances from the list, or add a custom one and enter its wattage.</p>
+            </div>
+            <div class="calc-point">
+              <span class="calc-point-mark">2</span>
+              <p>Set your average daily usage hours with the slider.</p>
+            </div>
+            <div class="calc-point">
+              <span class="calc-point-mark">3</span>
+              <p>Get an instant estimate, then send it straight to our team on WhatsApp.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="calculator-card">
+
+            <div class="calculator-heading">
+              <div>
+                <div class="calculator-eyebrow">SOLAR ESTIMATOR</div>
+                <h2>Know your energy needs.</h2>
+              </div>
+              <div class="calculator-icon">⚡</div>
+            </div>
+
+            <div class="calculator-section">
+              <div class="calculator-section-title">
+                <div>
+                  <strong>Appliance Load</strong>
+                  <span>Add the appliances you want to power.</span>
+                </div>
+                <strong id="totalLoad" class="load-total">0 W</strong>
+              </div>
+
+              <div id="applianceList" class="appliance-list"></div>
+
+              <button type="button" id="addAppliance" class="add-appliance">+ Add another appliance</button>
+            </div>
+
+            <div class="calculator-section">
+              <div class="calculator-section-title">
+                <div>
+                  <strong>Daily Usage</strong>
+                  <span>Average hours per day.</span>
+                </div>
+              </div>
+              <div class="usage-control">
+                <input type="range" id="usageHours" min="1" max="24" value="8">
+                <div class="usage-output">
+                  <span>Estimated daily usage</span>
+                  <strong><span id="usageHoursValue">8</span> hrs/day</strong>
+                </div>
+              </div>
+            </div>
+
+            <div class="calculator-section diesel-section">
+              <div class="calculator-section-title">
+                <div>
+                  <strong>Current Diesel Usage</strong>
+                  <span>Estimate what solar could replace.</span>
+                </div>
+              </div>
+              <div class="diesel-grid">
+                <label>
+                  <span>Litres / month</span>
+                  <input type="number" id="dieselLitres" min="0" value="100" placeholder="e.g. 100">
+                </label>
+                <label>
+                  <span>Price / litre</span>
+                  <input type="number" id="dieselPrice" min="0" value="1000" placeholder="₦ / litre">
+                </label>
+              </div>
+            </div>
+
+            <div class="calculator-results">
+              <div class="result-main">
+                <span>Estimated system load</span>
+                <strong id="recommendedInverter">0 kVA</strong>
+              </div>
+
+              <div class="result-grid">
+                <div class="result-item"><span>Daily energy</span><strong id="dailyEnergy">0 kWh</strong></div>
+                <div class="result-item"><span>Solar array</span><strong id="solarCapacity">0 kW</strong></div>
+                <div class="result-item"><span>Battery</span><strong id="batteryCapacity">0 kWh</strong></div>
+                <div class="result-item"><span>Diesel cost</span><strong id="dieselCost">₦0</strong></div>
+              </div>
+
+              <div class="savings-result">
+                <div>
+                  <span>Potential monthly diesel savings</span>
+                  <strong id="monthlySavings">₦0</strong>
+                </div>
+                <span class="estimate-note">Estimate only</span>
+              </div>
+
+              <a href="#contact" id="calculatorCTA" class="btn btn-accent calculator-cta">Discuss My Solar Setup →</a>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section services">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">What we do</div>
+        <h2 class="section-title">Comprehensive solar &amp; inverter solutions.</h2>
+        <p class="section-description">From a single residential backup to full commercial power independence.</p>
+      </div>
+      <div class="svc-grid">
+        <div class="svc-card"><div class="svc-icon">◐</div><h3>System sizing &amp; design</h3><p>A full energy audit shapes a solar installation built around your real household or business load.</p></div>
+        <div class="svc-card"><div class="svc-icon">⚡</div><h3>Inverter supply</h3><p>Reliable pure sine wave hybrid and off-grid inverters, engineered for unstable grid conditions.</p></div>
+        <div class="svc-card"><div class="svc-icon">▮</div><h3>Batteries &amp; storage</h3><p>Lithium-ion and AGM batteries for deep cycling and long-duration backup power.</p></div>
+        <div class="svc-card"><div class="svc-icon">⌂</div><h3>Residential installation</h3><p>Certified, tidy installations that hold up structurally and aesthetically for the long run.</p></div>
+        <div class="svc-card"><div class="svc-icon">▣</div><h3>Commercial &amp; industrial</h3><p>Large-scale systems that cut operating costs and remove downtime risk entirely.</p></div>
+        <div class="svc-card"><div class="svc-icon">✓</div><h3>Maintenance &amp; warranty</h3><p>System health checks, robust warranties, and fast local support after installation.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <div class="section-header">
+        <div class="eyebrow">Past Projects</div>
+        <h2 class="section-title">Installations across Nigeria.</h2>
+        <p class="section-description">Don't buy parts — buy a system. Talk to our engineers to see how a component fits into a full Solar Haven package, backed by a 25-year warranty.</p>
+      </div>
+      <div class="gallery-grid">
+        <a href="https://www.solarhaven.com.ng/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-09.27.13.jpeg" target="_blank" rel="noopener">
+          <img src="https://www.solarhaven.com.ng/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-09.27.13.jpeg" alt="Solar Haven installation" loading="lazy">
+        </a>
+        <a href="https://www.solarhaven.com.ng/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-09.23.43.jpeg" target="_blank" rel="noopener">
+          <img src="https://www.solarhaven.com.ng/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-09.23.43.jpeg" alt="Solar Haven installation" loading="lazy">
+        </a>
+        <a href="https://www.solarhaven.com.ng/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-09.24.25.jpeg" target="_blank" rel="noopener">
+          <img src="https://www.solarhaven.com.ng/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-09.24.25.jpeg" alt="Solar Haven installation" loading="lazy">
+        </a>
+        <a href="https://www.solarhaven.com.ng/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-09.27.12-1.jpeg" target="_blank" rel="noopener">
+          <img src="https://www.solarhaven.com.ng/wp-content/uploads/2025/11/WhatsApp-Image-2025-11-21-at-09.27.12-1.jpeg" alt="Solar Haven installation" loading="lazy">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact" id="contact">
+    <div class="container contact-grid">
+      <div>
+        <div class="section-header" style="margin-bottom:24px;">
+          <div class="eyebrow">Get in touch</div>
+          <h2 class="section-title">Three offices, one phone call away.</h2>
+        </div>
+        <div class="office"><h4>Head office — Ibadan</h4><p>Office 4, PJ Square Office Complex, beside NNPC, Akala Express, off New Garage, Ibadan, Oyo State.</p></div>
+        <div class="office"><h4>Lagos office</h4><p>Office 3, Enyo Filling Station, Ado Road, Ajah, Lagos State.</p></div>
+        <div class="office"><h4>Benin office</h4><p>Shop F14–15, Vegetable Market Complex, behind Access Bank, off Airport Road, Benin City.</p></div>
+      </div>
+
+      <div class="contact-card">
+        <h3>Free energy assessment</h3>
+        <p>Tell us what you're trying to power. We'll size a system and give you a firm quote — no obligation.</p>
+        <a class="contact-line" href="tel:+2348103294358">📞 0810 329 4358</a>
+        <a class="contact-line" href="tel:+2348058397042">📞 0805 839 7042</a>
+        <a class="contact-line" href="mailto:support@solarhaven.com.ng">✉ support@solarhaven.com.ng</a>
+        <div style="margin-top:24px;">
+          <a class="btn btn-accent" href="tel:+2348103294358" style="width:100%;">Call us now</a>
+        </div>
+        <div class="socials">
+          <a class="social-btn" href="https://www.facebook.com/solar.haven.1" target="_blank" rel="noopener" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.3c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12z"/></svg>
+          </a>
+          <a class="social-btn" href="https://www.instagram.com/solarhavenng/" target="_blank" rel="noopener" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 2 .25 2.5.42.6.24 1 .53 1.5 1s.76.9 1 1.5c.17.5.36 1.3.42 2.5.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 2-.42 2.5-.24.6-.53 1-1 1.5s-.9.76-1.5 1c-.5.17-1.3.36-2.5.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-2-.25-2.5-.42-.6-.24-1-.53-1.5-1s-.76-.9-1-1.5c-.17-.5-.36-1.3-.42-2.5C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-2 .42-2.5.24-.6.53-1 1-1.5s.9-.76 1.5-1c.5-.17 1.3-.36 2.5-.42C8.4 2.2 8.8 2.2 12 2.2zm0 3.06A6.74 6.74 0 1 0 12 18.7 6.74 6.74 0 0 0 12 5.26zm0 11.1a4.36 4.36 0 1 1 0-8.72 4.36 4.36 0 0 1 0 8.72zm6.9-11.37a1.58 1.58 0 1 1-3.15 0 1.58 1.58 0 0 1 3.15 0z"/></svg>
+          </a>
+          <a class="social-btn" href="https://x.com/TheSolarHaven" target="_blank" rel="noopener" aria-label="X (Twitter)">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.67l7.73-8.84L1.25 2.25h6.83l4.72 6.24 5.44-6.24zm-1.16 17.52h1.83L7.08 4.13H5.11l11.97 15.64z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Solar Haven Nigeria Ltd.</p>
+    <p>Ibadan · Lagos · Benin City</p>
+  </div>
+</footer>
+
+<script>
+  /* =========================================================
+     MOBILE MENU
+     ========================================================= */
+  document.querySelector('.mobile-menu').addEventListener('click', () => {
+    const nav = document.querySelector('.nav-links');
+    const isOpen = nav.classList.toggle('mobile-open');
+    if(isOpen){
+      nav.style.display='flex';
+      nav.style.position='absolute';
+      nav.style.top='72px';
+      nav.style.left='0';
+      nav.style.right='0';
+      nav.style.padding='20px';
+      nav.style.flexDirection='column';
+      nav.style.alignItems='flex-start';
+      nav.style.background='var(--color-white)';
+      nav.style.borderBottom='1px solid var(--color-border)';
+    } else {
+      nav.removeAttribute('style');
+    }
+  });
+  document.querySelectorAll('.nav-links a').forEach(link=>{
+    link.addEventListener('click', ()=>{
+      document.querySelector('.nav-links').classList.remove('mobile-open');
+      document.querySelector('.nav-links').removeAttribute('style');
+    });
+  });
+
+  /* =========================================================
+     LOAD CALCULATOR — ported from the reference site
+     ========================================================= */
+  const appliancePresets = {
+    "LED Bulb": 10, "Ceiling Fan": 70, "Standing Fan": 80, "Table Fan": 45,
+    "TV - Small": 60, "TV - Medium": 100, "TV - Large": 150,
+    "Decoder / Set-top Box": 20, "Wi-Fi Router": 15, "Laptop": 65,
+    "Desktop Computer": 200, "Monitor": 40, "Phone Charger": 10,
+    "Tablet Charger": 15, "CCTV Camera": 8, "CCTV DVR/NVR": 40,
+    "Internet Modem": 15, "Printer": 50, "Refrigerator": 150,
+    "Deep Freezer": 180, "Chest Freezer": 200, "Microwave": 1200,
+    "Electric Kettle": 1500, "Blender": 500, "Food Processor": 500,
+    "Rice Cooker": 700, "Electric Iron": 1200, "Electric Cooker": 2000,
+    "Hot Plate": 1500, "Air Conditioner - 1 HP": 1000, "Air Conditioner - 1.5 HP": 1500,
+    "Air Conditioner - 2 HP": 2000, "Air Conditioner - 2.5 HP": 2500, "Air Conditioner - 3 HP": 3000,
+    "Water Pump - Small": 500, "Water Pump - Medium": 1000, "Water Pump - Large": 1500,
+    "Washing Machine": 700, "Water Heater": 3000, "Electric Shower": 4000,
+    "Hair Dryer": 1500, "Vacuum Cleaner": 1000, "Sound System": 300,
+    "PA System": 500, "Projector": 300, "Photocopier": 800,
+    "POS Terminal": 30, "Cash Register": 100, "Server / Network Equipment": 500,
+    "Small Office Equipment": 300, "Workshop Tool": 1000, "Power Tool": 1500,
+    "Air Compressor": 2000, "Sewing Machine": 500, "Small Refrigerator": 100,
+    "Custom Appliance": 0
+  };
+
+  const applianceList = document.getElementById("applianceList");
+  const addApplianceButton = document.getElementById("addAppliance");
+  const totalLoadElement = document.getElementById("totalLoad");
+  const usageHours = document.getElementById("usageHours");
+  const usageHoursValue = document.getElementById("usageHoursValue");
+  const dieselLitres = document.getElementById("dieselLitres");
+  const dieselPrice = document.getElementById("dieselPrice");
+  const recommendedInverter = document.getElementById("recommendedInverter");
+  const dailyEnergy = document.getElementById("dailyEnergy");
+  const solarCapacity = document.getElementById("solarCapacity");
+  const batteryCapacity = document.getElementById("batteryCapacity");
+  const dieselCost = document.getElementById("dieselCost");
+  const monthlySavings = document.getElementById("monthlySavings");
+  const calculatorCTA = document.getElementById("calculatorCTA");
+
+  function formatNaira(value){
+    return "₦" + Math.round(value).toLocaleString("en-NG");
+  }
+
+  function createApplianceOptions(){
+    return Object.entries(appliancePresets).map(([name, watts]) =>
+      `<option value="${name}" data-watts="${watts}">${name}</option>`
+    ).join("");
+  }
+
+  function addAppliance(appliance = "LED Bulb", quantity = 1){
+    const row = document.createElement("div");
+    row.className = "appliance-row";
+    row.innerHTML = `
+      <select class="appliance-select">${createApplianceOptions()}</select>
+      <input type="number" class="quantity-input" min="1" value="${quantity}" aria-label="Quantity" placeholder="Quantity">
+      <input type="number" class="watts-input" min="0" value="${appliancePresets[appliance] || 0}" aria-label="Watts" title="You can change this if you know the actual wattage." placeholder="Wattage">
+      <button type="button" class="remove-appliance" aria-label="Remove appliance">×</button>
+    `;
+    const select = row.querySelector(".appliance-select");
+    select.value = appliance;
+
+    select.addEventListener("change", () => {
+      const selected = select.value;
+      const watts = appliancePresets[selected];
+      row.querySelector(".watts-input").value = watts;
+      calculate();
+    });
+
+    row.querySelector(".quantity-input").addEventListener("input", calculate);
+    row.querySelector(".watts-input").addEventListener("input", calculate);
+    row.querySelector(".remove-appliance").addEventListener("click", () => {
+      row.remove();
+      calculate();
+    });
+
+    applianceList.appendChild(row);
+    calculate();
+  }
+
+  function calculate(){
+    let totalWatts = 0;
+    const rows = applianceList.querySelectorAll(".appliance-row");
+    rows.forEach(row => {
+      const quantity = Number(row.querySelector(".quantity-input").value) || 0;
+      const watts = Number(row.querySelector(".watts-input").value) || 0;
+      totalWatts += quantity * watts;
+    });
+
+    const hours = Number(usageHours.value) || 0;
+    const energyPerDay = (totalWatts * hours) / 1000;
+
+    const inverterKW = (totalWatts * 1.25) / 1000;
+    const inverterKVA = inverterKW / 0.8;
+    const roundedInverter = Math.max(1, Math.ceil(inverterKVA));
+
+    const solarKW = energyPerDay / (5 * 0.8);
+    const roundedSolar = Math.max(1, Math.ceil(solarKW * 2) / 2);
+
+    const batteryKWh = energyPerDay / 0.8;
+    const roundedBattery = Math.max(1, Math.ceil(batteryKWh));
+
+    const litres = Number(dieselLitres.value) || 0;
+    const price = Number(dieselPrice.value) || 0;
+    const monthlyDieselCost = litres * price;
+
+    totalLoadElement.textContent = `${Math.round(totalWatts)} W`;
+    usageHoursValue.textContent = hours;
+    recommendedInverter.textContent = `${roundedInverter} kVA`;
+    dailyEnergy.textContent = `${energyPerDay.toFixed(1)} kWh`;
+    solarCapacity.textContent = `${roundedSolar} kW`;
+    batteryCapacity.textContent = `${roundedBattery} kWh`;
+    dieselCost.textContent = formatNaira(monthlyDieselCost);
+    monthlySavings.textContent = formatNaira(monthlyDieselCost);
+
+    const message = `Hello, I'd like to discuss a solar setup.
+
+Estimated connected load:
+${Math.round(totalWatts)} W
+
+Estimated daily energy:
+${energyPerDay.toFixed(1)} kWh
+
+Estimated inverter:
+${roundedInverter} kVA
+
+Estimated solar array:
+${roundedSolar} kW
+
+Estimated battery:
+${roundedBattery} kWh
+
+Current diesel usage:
+${litres} litres/month
+
+Current diesel cost:
+${formatNaira(monthlyDieselCost)}`;
+
+    calculatorCTA.href = `https://wa.me/2348103294358?text=${encodeURIComponent(message)}`;
+  }
+
+  addApplianceButton.addEventListener("click", () => addAppliance());
+  usageHours.addEventListener("input", calculate);
+  dieselLitres.addEventListener("input", calculate);
+  dieselPrice.addEventListener("input", calculate);
+
+  addAppliance("LED Bulb", 5);
+  addAppliance("Ceiling Fan", 2);
+  addAppliance("TV - Medium", 1);
+  addAppliance("Refrigerator", 1);
+
+  calculate();
+</script>
+</body>
+</html>
